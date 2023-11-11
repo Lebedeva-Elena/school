@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -15,33 +17,31 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Student> getStudentInfo(@PathVariable long id) {
-        Student student = studentService.findStudent(id);
-        if (student == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(student);
+    @PostMapping
+    public Student create(@RequestBody Student student) {
+        return studentService.create(student);
     }
 
-    @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    @GetMapping("/{id}")
+    public Student read(@PathVariable long id) {
+        return studentService.read(id);
+
     }
 
     @PutMapping
-    public ResponseEntity<Student> updateStudentInfo(@RequestBody long id, @RequestBody Student student) {
-        Student foundStudent = studentService.editStudent(student);
-        if (student == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(foundStudent);
+    public Student update(@RequestBody Student student) {
+        return studentService.update(student);
+
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> removeStudent(@PathVariable long id) {
-        studentService.deleteStudent(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/{id}")
+    public Student delete(@PathVariable long id) {
+        return studentService.delete(id);
+    }
+
+    @GetMapping
+    public Collection<Student> readByAge(@RequestParam int age) {
+        return studentService.readByAge(age);
     }
 
 }

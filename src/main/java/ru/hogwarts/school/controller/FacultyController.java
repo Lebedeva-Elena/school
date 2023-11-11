@@ -1,10 +1,10 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
+
+import java.util.Collection;
 
 
 @RestController
@@ -17,33 +17,31 @@ public class FacultyController {
     }
 
 
-    @GetMapping("{id}")
-    public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id) {
-        Faculty faculty = facultyService.findFaculty(id);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok((faculty));
-    }
+
 
     @PostMapping
-    public Faculty addFaculty(@RequestBody Faculty faculty) {
-        return facultyService.addFaculty(faculty);
+    public Faculty create(@RequestBody Faculty faculty) {
+        return facultyService.create(faculty);
+    }
+    @GetMapping("/{id}")
+    public Faculty read(@PathVariable Long id) {
+        return facultyService.read(id);
     }
 
     @PutMapping
-    public ResponseEntity<Faculty> updateFacultyInfo(@RequestBody long id, @RequestBody Faculty faculty) {
-        Faculty foundFaculty = facultyService.editFaculty(faculty);
-        if (faculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(foundFaculty);
+    public Faculty update(@RequestBody Faculty faculty) {
+        facultyService.update(faculty);
+        return faculty;
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> removeFaculty(@PathVariable long id) {
-        facultyService.deleteFaculty(id);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/{id}")
+    public Faculty delete(@PathVariable long id) {
+        return facultyService.delete(id);
+    }
+
+    @GetMapping
+    public Collection<Faculty> readByColor(@RequestParam String color) {
+        return facultyService.readByColor(color);
     }
 
 }
