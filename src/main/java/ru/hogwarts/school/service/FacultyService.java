@@ -19,4 +19,5 @@ public interface FacultyService {
 
 
     Collection<Faculty> readByColor(String color);
+
 }
