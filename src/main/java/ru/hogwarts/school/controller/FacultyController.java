@@ -36,16 +36,15 @@ public class FacultyController {
         return facultyService.delete(id);
     }
 
-    @GetMapping
+    @GetMapping("/color")
     public Collection<Faculty> readByColor(@RequestParam String color) {
         return facultyService.readByColor(color);
     }
-    @GetMapping("/order")
-    public Collection<Faculty> readAllIgnoreCaseOrColorIgnoreCase(@RequestParam String name,
+    @GetMapping("/filter")
+    public Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(@RequestParam String name,
                                                                   @RequestParam String color) {
-        return facultyService.readAllIgnoreCaseOrColorIgnoreCase(name, color);
+        return facultyService.readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
+
     }
-
-
 }
 
