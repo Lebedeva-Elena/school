@@ -24,8 +24,8 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty read(long id) {
         return faculties.findById(id).
-                orElseThrow(() -> new FacultyNotFoundException ("Факультет с id " + id  +
-                " не найден в списке"));
+                orElseThrow(() -> new FacultyNotFoundException("Факультет с id " + id +
+                        " не найден в списке"));
 
     }
 
@@ -47,10 +47,10 @@ public class FacultyServiceImpl implements FacultyService {
         return faculties.findAllByColor(color);
     }
 
-
-
-
-
+    @Override
+    public Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String name, String color) {
+        return faculties.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
+    }
 }
 
 

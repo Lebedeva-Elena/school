@@ -20,4 +20,5 @@ public interface FacultyService {
 
     Collection<Faculty> readByColor(String color);
 
+    Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String name, String color);
 }
