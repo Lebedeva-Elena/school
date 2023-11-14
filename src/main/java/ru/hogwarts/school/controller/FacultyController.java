@@ -16,9 +16,6 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-
-
-
     @PostMapping
     public Faculty create(@RequestBody Faculty faculty) {
         return facultyService.create(faculty);
@@ -43,6 +40,12 @@ public class FacultyController {
     public Collection<Faculty> readByColor(@RequestParam String color) {
         return facultyService.readByColor(color);
     }
+    @GetMapping("/order")
+    public Collection<Faculty> readAllIgnoreCaseOrColorIgnoreCase(@RequestParam String name,
+                                                                  @RequestParam String color) {
+        return facultyService.readAllIgnoreCaseOrColorIgnoreCase(name, color);
+    }
+
 
 }
 

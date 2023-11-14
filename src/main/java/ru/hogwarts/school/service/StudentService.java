@@ -16,4 +16,6 @@ public interface StudentService {
     Student delete(long id);
 
     Collection<Student> readByAge(int age);
+
+    Collection<Student> readByAgeBetween(int minAge, int maxAge);
 }
