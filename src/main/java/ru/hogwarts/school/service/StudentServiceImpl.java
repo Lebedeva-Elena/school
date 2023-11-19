@@ -2,11 +2,12 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.StudentNotFoundException;
+import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
-
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -58,7 +59,9 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Collection<Student> readByFacultyId(long facultyId) {
         return students.findAllByFaculty_id(facultyId);
-
-
     }
+//    @Override
+//    public Optional<Student> readByStudentId(long studentId) {
+//        return students.findById(studentId);
+//    }
 }
