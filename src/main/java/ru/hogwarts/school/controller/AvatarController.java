@@ -18,7 +18,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 
-@RestController("/avatar")
+@RestController
+@RequestMapping("/avatar")
 public class AvatarController {
     private final AvatarService avatarService;
     private final int maxFileSizeInB = 300 * 1024;
@@ -27,7 +28,7 @@ public class AvatarController {
         this.avatarService = avatarService;
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "{studentId}avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@RequestParam long studentId,
                                                @RequestParam MultipartFile avatar)
             throws IOException {
@@ -42,7 +43,7 @@ public class AvatarController {
         return ResponseEntity.ok().body("Изображение сохранено");
     }
 
-    @GetMapping("{id}/avatar-from-db")
+    @GetMapping("/{id}/avatar-from-db")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable long id) {
         Avatar avatar = avatarService.readFromDB(id);
 
@@ -57,8 +58,7 @@ public class AvatarController {
 
     @GetMapping("/{id}/avatar-from-file")
     public void downloadAvatar(@PathVariable long id, HttpServletResponse response) throws IOException {
-        Avatar avatar = avatarService.readFromDB(id);
-
+        Avatar avatar = avatarService.readFromFile(id);
         Path path = Path.of(avatar.getFilePath());
 
         try (

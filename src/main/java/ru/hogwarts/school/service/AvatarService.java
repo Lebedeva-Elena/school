@@ -10,4 +10,6 @@ public interface AvatarService {
 
 
     Avatar readFromDB(long id);
+
+    Avatar readFromFile(long id) throws IOException;
 }

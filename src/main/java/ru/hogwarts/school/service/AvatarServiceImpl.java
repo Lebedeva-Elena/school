@@ -76,8 +76,15 @@ public class AvatarServiceImpl implements AvatarService {
 
    @Override
    public Avatar readFromDB(long id) {
-       return avatarRepository.findById(id)
+       return avatarRepository.findByStudent_id(id)
                 .orElseThrow(() -> new AvatarNotFoundException("Аватар не найден"));
+    }
+    @Override
+    public Avatar readFromFile(long id) throws IOException {
+        Avatar avatar = readFromDB(id);
+        Path path = Path.of(avatar.getFilePath());
+
+        return new File(path.toString());
     }
 
 }
