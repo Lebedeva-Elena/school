@@ -4,10 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import ru.hogwarts.school.exception.FacultyAlreadyExistsException;
-import ru.hogwarts.school.exception.FacultyNotFoundException;
-import ru.hogwarts.school.exception.StudentAlreadyExistsException;
-import ru.hogwarts.school.exception.StudentNotFoundException;
+import ru.hogwarts.school.exception.*;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -17,7 +14,7 @@ public class ControllerExceptionHandler {
 
     }
 
-    @ExceptionHandler({StudentNotFoundException.class, FacultyNotFoundException.class})
+    @ExceptionHandler({StudentNotFoundException.class, FacultyNotFoundException.class, AvatarNotFoundException.class})
     public ResponseEntity<String> handlerNotFoundException(RuntimeException ex) {
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 
