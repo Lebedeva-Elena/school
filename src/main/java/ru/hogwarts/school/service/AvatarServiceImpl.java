@@ -74,19 +74,18 @@ public class AvatarServiceImpl implements AvatarService {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-   @Override
-   public Avatar readFromDB(long id) {
-       return avatarRepository.findByStudent_id(id)
+    @Override
+    public Avatar readFromDB(long id) {
+        return avatarRepository.findByStudent_id(id)
                 .orElseThrow(() -> new AvatarNotFoundException("Аватар не найден"));
     }
+
     @Override
-    public Avatar readFromFile(long id) throws IOException {
+    public File readFromFile(long id) throws IOException{
         Avatar avatar = readFromDB(id);
         Path path = Path.of(avatar.getFilePath());
 
         return new File(path.toString());
+
     }
-
 }
-
-

@@ -3,6 +3,7 @@ package ru.hogwarts.school.service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 
+import java.io.File;
 import java.io.IOException;
 
 public interface AvatarService {
@@ -11,5 +12,6 @@ public interface AvatarService {
 
     Avatar readFromDB(long id);
 
-    Avatar readFromFile(long id) throws IOException;
+
+    File readFromFile(long id) throws IOException;
 }

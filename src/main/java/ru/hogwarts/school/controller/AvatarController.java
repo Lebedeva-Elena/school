@@ -11,6 +11,7 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -57,20 +58,20 @@ public class AvatarController {
     }
 
     @GetMapping("/{id}/avatar-from-file")
-    public void downloadAvatar(@PathVariable long id, HttpServletResponse response) throws IOException {
-        Avatar avatar = avatarService.readFromFile(id);
-        Path path = Path.of(avatar.getFilePath());
+    public ResponseEntity<byte[]> downloadAvatar(@PathVariable long id, HttpServletResponse response) throws IOException {
+        File avatar = avatarService.readFromFile(id);
 
-        try (
-                InputStream is = Files.newInputStream(path);
-                OutputStream os = response.getOutputStream();) {
-            response.setStatus(200);
-            response.setContentType(avatar.getMediaType());
-            response.setContentLength((int) avatar.getFileSize());
-            is.transferTo(os);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(Files.probeContentType(avatar.toPath())));
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(Files.readAllBytes(avatar.toPath()));
         }
 
     }
 
-}
+
 
