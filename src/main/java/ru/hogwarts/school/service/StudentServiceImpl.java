@@ -60,8 +60,5 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> readByFacultyId(long facultyId) {
         return students.findAllByFaculty_id(facultyId);
     }
-//    @Override
-//    public Optional<Student> readByStudentId(long studentId) {
-//        return students.findById(studentId);
-//    }
+
 }
