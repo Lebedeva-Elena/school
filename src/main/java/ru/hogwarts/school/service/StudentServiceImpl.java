@@ -2,55 +2,55 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.StudentNotFoundException;
-import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import java.util.Collection;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository students;
+    private final StudentRepository studentRepository;
 
-    public StudentServiceImpl(StudentRepository students) {
-        this.students = students;
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
     @Override
     public Student create(Student student) {
-        return students.save(student);
+        return studentRepository.save(student);
     }
 
     @Override
     public Student read(long id) {
-        return students.findById(id).
+        return studentRepository.findById(id).
                 orElseThrow(() -> new StudentNotFoundException("Студент с id " + id +
                         " не найден в списке"));
     }
 
     @Override
     public Student update(Student student) {
-        read(student.getId());
+        Student studentDB = read(student.getId());
+        studentDB.setName(student.getName());
+        studentDB.setAge(studentDB.getAge());
 
-        return students.save(student);
+        return studentRepository.save(studentDB);
     }
 
     @Override
     public Student delete(long id) {
         Student student = read(id);
-        students.delete(student);
+        studentRepository.delete(student);
         return student;
     }
 
     @Override
     public Collection<Student> readByAge(int age) {
-        return students.findAllByAge(age);
+        return studentRepository.findAllByAge(age);
     }
 
     @Override
     public Collection<Student> readByAgeBetween(int minAge, int maxAge) {
-        return students.getByAgeBetween(minAge, maxAge);
+        return studentRepository.getByAgeBetween(minAge, maxAge);
     }
     @Override
     public Faculty readStudentFaculty(long studentId) {
@@ -58,7 +58,7 @@ public class StudentServiceImpl implements StudentService {
     }
     @Override
     public Collection<Student> readByFacultyId(long facultyId) {
-        return students.findAllByFaculty_id(facultyId);
+        return studentRepository.findAllByFaculty_id(facultyId);
     }
 
 }

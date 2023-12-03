@@ -8,6 +8,7 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
 
@@ -28,7 +29,8 @@ public class StudentController {
 
     @PutMapping
     public Student update(@RequestBody Student student) {
-        return studentService.update(student);
+        Student student1 =  studentService.update(student);
+        return student1;
 
     }
 

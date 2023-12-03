@@ -23,7 +23,7 @@ public class StudentControllerRestTemplateTest {
     Student student = new Student(1L, "Ron", 13);
     @BeforeEach
     void beforeEach(){
-       baseUrl = "http//localhost:" + port + "/student";
+       baseUrl = "http://localhost:" + port + "/student";
 
     }
 

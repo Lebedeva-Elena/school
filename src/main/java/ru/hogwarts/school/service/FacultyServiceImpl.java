@@ -9,21 +9,21 @@ import java.util.*;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
-    private final FacultyRepository faculties;
+    private final FacultyRepository facultyRepository;
 
     public FacultyServiceImpl(FacultyRepository faculties) {
-        this.faculties = faculties;
+        this.facultyRepository = faculties;
     }
 
     @Override
     public Faculty create(Faculty faculty) {
-        return faculties.save(faculty);
+        return facultyRepository.save(faculty);
 
     }
 
     @Override
     public Faculty read(long id) {
-        return faculties.findById(id).
+        return facultyRepository.findById(id).
                 orElseThrow(() -> new FacultyNotFoundException("Факультет с id " + id +
                         " не найден в списке"));
 
@@ -31,25 +31,28 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Faculty update(Faculty faculty) {
-        read(faculty.getId());
-        return faculties.save(faculty);
+        Faculty facultyDB = read(faculty.getId());
+        facultyDB.setName(faculty.getName());
+        facultyDB.setColor(faculty.getColor());
+
+        return facultyRepository.save(facultyDB);
     }
 
     @Override
     public Faculty delete(long id) {
         Faculty faculty = read(id);
-        faculties.delete(faculty);
+        facultyRepository.delete(faculty);
         return faculty;
     }
 
     @Override
     public Collection<Faculty> readByColor(String color) {
-        return faculties.findAllByColor(color);
+        return facultyRepository.findAllByColor(color);
     }
 
     @Override
     public Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String name, String color) {
-        return faculties.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
+        return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
     }
 }
 
