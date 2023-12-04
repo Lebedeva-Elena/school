@@ -18,6 +18,7 @@ import ru.hogwarts.school.service.FacultyServiceImpl;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -59,6 +60,7 @@ public class FacultyControllerWebMvcTest {
     @Test
     void update_shouldReturnFacultyAndStatus200() throws Exception {
         when(facultyRepository.findById(faculty.getId())).thenReturn(Optional.of(faculty));
+        when(facultyRepository.save(any())).thenReturn(faculty);
         mockMvc.perform(put("/faculty")
                         .content(objectMapper.writeValueAsString(faculty))
                         .contentType(MediaType.APPLICATION_JSON))

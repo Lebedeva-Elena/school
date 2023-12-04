@@ -11,8 +11,8 @@ import java.util.*;
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository facultyRepository;
 
-    public FacultyServiceImpl(FacultyRepository faculties) {
-        this.facultyRepository = faculties;
+    public FacultyServiceImpl(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
     }
 
     @Override
