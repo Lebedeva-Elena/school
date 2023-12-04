@@ -26,4 +26,9 @@ public interface StudentService {
 
     Collection<Student> readByFacultyId(long facultyId);
 
+    Integer getCountOfAllStudents();
+
+    Double getAverageAgeOfStudents();
+
+    Collection<Student> getLastFiveStudents();
 }
