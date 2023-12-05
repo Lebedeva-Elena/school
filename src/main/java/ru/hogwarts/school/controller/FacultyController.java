@@ -12,6 +12,7 @@ import java.util.Collection;
 public class FacultyController {
 
     private final FacultyService facultyService;
+
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
@@ -20,6 +21,7 @@ public class FacultyController {
     public Faculty create(@RequestBody Faculty faculty) {
         return facultyService.create(faculty);
     }
+
     @GetMapping("/{id}")
     public Faculty read(@PathVariable Long id) {
         return facultyService.read(id);
@@ -40,11 +42,14 @@ public class FacultyController {
     public Collection<Faculty> readByColor(@RequestParam String color) {
         return facultyService.readByColor(color);
     }
+
     @GetMapping("/filter")
     public Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(@RequestParam String name,
-                                                                  @RequestParam String color) {
+                                                                                         @RequestParam String color) {
         return facultyService.readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
 
     }
+
+
 }
 
