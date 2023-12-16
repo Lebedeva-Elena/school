@@ -45,19 +45,20 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty delete(long id) {
         Faculty faculty = read(id);
-        logger.info("Was invoked method for delete faculty");
+        logger.info("Was invoked method for delete faculty {}", id);
         facultyRepository.delete(faculty);
         return faculty;
     }
 
     @Override
     public Collection<Faculty> readByColor(String color) {
-        logger.info("Was invoked method for readByColor faculty");
+        logger.info("Was invoked method for readByColor faculty {}", color);
         return facultyRepository.findAllByColor(color);
     }
 
     @Override
     public Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String name, String color) {
+        logger.info("Was invoked method for readByNameContainingIgnoreCaseOrColorContainingIgnoreCase faculty");
         return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
     }
 }
