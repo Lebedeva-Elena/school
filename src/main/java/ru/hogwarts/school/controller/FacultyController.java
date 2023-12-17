@@ -1,10 +1,12 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 
 @RestController
@@ -48,6 +50,23 @@ public class FacultyController {
                                                                                          @RequestParam String color) {
         return facultyService.readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
 
+    }
+
+    @GetMapping("/mustlongnameofaculty")
+    public ResponseEntity<String> getMustLongNameFaculty() {
+        return facultyService.getMustLongNameFaculty();
+    }
+
+    @GetMapping("/sum")
+    public int getSum() {
+        long time = System.currentTimeMillis();
+        Stream
+                .iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0, Integer::sum);
+        time = System.currentTimeMillis() - time;
+        System.out.printf("time %d \n", time);
+        return (int) time;
     }
 
 

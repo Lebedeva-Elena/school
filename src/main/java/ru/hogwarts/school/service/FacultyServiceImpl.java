@@ -1,13 +1,13 @@
 package ru.hogwarts.school.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.FacultyNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -61,6 +61,23 @@ public class FacultyServiceImpl implements FacultyService {
         logger.info("Was invoked method for readByNameContainingIgnoreCaseOrColorContainingIgnoreCase faculty");
         return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
     }
+
+    @Override
+    public ResponseEntity<String> getMustLongNameFaculty() {
+        Optional<String> maxFacultyName = facultyRepository
+                .findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length));
+        if (maxFacultyName.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(maxFacultyName.get());
+
+        }
+    }
 }
+
+
 
 
