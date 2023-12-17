@@ -1,0 +1,14 @@
+CREATE  TABLE people (
+id INTEGER PRIMARY KEY,
+name VARCHAR,
+age INTEGER,
+driversLicense BOOLEAN
+id_car INTEGER REFERENCES cars (id)
+);
+
+CREATE TABLE cars (
+id INTEGER PRIMARY KEY,
+brand VARCHAR,
+model VARCHAR,
+price INTEGER
+);
