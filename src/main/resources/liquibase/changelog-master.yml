@@ -1,3 +1,4 @@
-databaseChangelog:
+databaseChangeLog:
   - include:
-      file: liquibase/scripts/lesson_three.sql
+      file: liquibase/scripts/lesson-three.sql
+
