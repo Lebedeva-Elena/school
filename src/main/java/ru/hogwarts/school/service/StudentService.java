@@ -35,4 +35,6 @@ public interface StudentService {
     Collection<String> getFilteredByName();
 
     Double getStudentsAvgAge();
+
+    void printParallelStudents() throws InterruptedException;
 }
