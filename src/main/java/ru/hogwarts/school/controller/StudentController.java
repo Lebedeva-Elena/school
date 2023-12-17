@@ -90,6 +90,10 @@ public class StudentController {
         return studentService.getStudentsAvgAge();
 
     }
+    @GetMapping("/students/print-parallel")
+    public void getNames() throws InterruptedException{
+        studentService.printParallelStudents();
+    }
 
 }
 

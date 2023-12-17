@@ -7,6 +7,7 @@ import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -60,11 +61,13 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Was invoked method for readByAgeBetween student");
         return studentRepository.getByAgeBetween(minAge, maxAge);
     }
+
     @Override
     public Faculty readStudentFaculty(long studentId) {
         logger.info("Was invoked method for readStudentFaculty faculty");
         return read(studentId).getFaculty();
     }
+
     @Override
     public Collection<Student> readByFacultyId(long facultyId) {
         logger.info("Was invoked method for readByFacultyId students");
@@ -82,6 +85,7 @@ public class StudentServiceImpl implements StudentService {
         logger.info("Was invoked method for getAverageAgeOfStudents students");
         return studentRepository.getAverageAgeOfStudents();
     }
+
     @Override
     public Collection<Student> getLastFiveStudents() {
         logger.info("Was invoked method for getLastFiveStudents students");
@@ -92,8 +96,8 @@ public class StudentServiceImpl implements StudentService {
     public Collection<String> getFilteredByName() {
         return studentRepository.findAll()
                 .stream()
-                .map(Student :: getName)
-                .map(String :: toUpperCase)
+                .map(Student::getName)
+                .map(String::toUpperCase)
                 .filter(s -> s.startsWith("A"))
                 .sorted()
                 .collect(Collectors.toList());
@@ -107,7 +111,33 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .orElse(0);
     }
+    @Override
+    public void printParallelStudents() {
+        Thread thread = new Thread(() -> {
+            printName(3L);
+            printName(4L);
+        });
+        thread.setName("Thread 1");
+        Thread thread1 = new Thread(() -> {
+            printName(5L);
+            printName(6L);
+        });
+        thread1.setName("Thread 2");
+            thread.start();
+            thread1.start();
 
+            printName(1L);
+            printName(2L);
+    }
 
+    @SuppressWarnings("deprecation")
+    private void printName(long id) {
+        String studentName = studentRepository.getById(id).getName();
+        System.out.println(studentName);
 
+    }
 }
+
+
+
+
