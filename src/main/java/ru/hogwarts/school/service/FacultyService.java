@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.http.ResponseEntity;
 import ru.hogwarts.school.model.Faculty;
 
 import java.util.Collection;
@@ -21,4 +22,6 @@ public interface FacultyService {
     Collection<Faculty> readByColor(String color);
 
     Collection<Faculty> readByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String name, String color);
+
+    ResponseEntity<String> getMustLongNameFaculty();
 }
