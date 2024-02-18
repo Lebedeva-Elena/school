@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Faculty;
@@ -131,12 +132,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @SuppressWarnings("deprecation")
-    private void printName(long id) {
-        String studentName = studentRepository.getById(id).getName();
+    private void printName() {
+        String studentName = studentRepository.getAllStudents().toString();
         System.out.println(studentName);
 
     }
-}
+
+
+    }
+
+
 
 
 
